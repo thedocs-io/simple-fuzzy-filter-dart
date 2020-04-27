@@ -1,0 +1,13 @@
+name: simple_fuzzy_filter
+description: Filters text by splitting it into words
+version: 0.0.1
+homepage: https://github.com/thedocs-io/simple-fuzzy-filter-dart
+maintainer: Fedor Belov
+
+environment:
+  sdk: ">=2.6.0 <3.0.0"
+
+#dependencies:
+#
+dev_dependencies:
+  test:
