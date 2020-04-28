@@ -1,7 +1,7 @@
-import 'package:simple_fuzzy_filter/simple_fuzzy_filter_domain.dart';
+import 'package:simple_fuzzy_filter/simple_fuzzy_filter_text_provider.dart';
 import 'package:simple_fuzzy_filter/simple_fuzzy_filter_result.dart';
 
-export 'simple_fuzzy_filter_domain.dart';
+export 'simple_fuzzy_filter_text_provider.dart';
 export 'simple_fuzzy_filter_result.dart';
 
 class SimpleFuzzyFilter<T> {
