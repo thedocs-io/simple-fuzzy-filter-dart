@@ -7,14 +7,14 @@ class SimpleFuzzyFilterHighlightItem {
 }
 
 class SimpleFuzzyFilterHighlightResult {
-  final List<SimpleFuzzyFilterHighlightItem> simple;
+  final List<SimpleFuzzyFilterHighlightItem> single;
   final List<List<SimpleFuzzyFilterHighlightItem>> list;
   final Map<String, List<SimpleFuzzyFilterHighlightItem>> map;
 
-  SimpleFuzzyFilterHighlightResult({this.simple, this.list, this.map});
+  SimpleFuzzyFilterHighlightResult({this.single, this.list, this.map});
 
-  bool isSimple() {
-    return this.simple != null;
+  bool isSingle() {
+    return this.single != null;
   }
 
   bool isList() {

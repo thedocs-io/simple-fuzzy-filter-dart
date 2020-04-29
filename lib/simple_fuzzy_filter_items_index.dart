@@ -49,7 +49,7 @@ class SimpleFuzzyFilterItemsIndex<T> {
 
   void add(T item) {
     if (this._items != null) {
-      var textOriginal = this._textProvider.getText();
+      var textOriginal = this._textProvider.getText(item);
       var textTokenized = this._tokenize(textOriginal);
 
       this._items.add(new SimpleFuzzyFilterItemData<T>(item, textOriginal, textTokenized));
