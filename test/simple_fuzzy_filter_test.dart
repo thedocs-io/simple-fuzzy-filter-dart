@@ -20,7 +20,7 @@ class DataSetToCheck {
   List<DataSetToCheckExpectItem> expect;
 
   DataSetToCheck({this.keys, this.query, List<Map<String, dynamic>> expect})
-      : this.expect = expect.map((e) => new DataSetToCheckExpectItem(e["highlight"], !!e["isSameOrder"])).toList();
+      : this.expect = expect.map((e) => new DataSetToCheckExpectItem(e["highlight"], e["isSameOrder"] ?? false)).toList();
 }
 
 main() {
@@ -28,18 +28,19 @@ main() {
     return highlight.map((h) => (h.isMatched) ? "[" + h.text + "]" : h.text).join("");
   }
 
-  void _assert(DataSetToCheck dataSetToCheck, {Map<String, dynamic> config = const {}}) {
+  void _assert(DataSetToCheck dataSetToCheck, {SimpleFuzzyFilterInitConfig<SimpleNote> config = null}) {
     //when
     var notes = dataSetToCheck.keys.map((k) => new SimpleNote(k)).toList();
-    config["items"] = notes;
-    config["textProvider"] = SimpleFuzzyFilterItemTextProvider.simple((n) => n.name);
+    var textProvider = SimpleFuzzyFilterItemTextProvider.single((n) => n.name);
+    config = config ?? new SimpleFuzzyFilterInitConfig();
+    config.items = notes;
 
-    var filter = new SimpleFuzzyFilter(textProvider: config["textProvider"]);
+    var filter = new SimpleFuzzyFilter(textProvider: textProvider, config: config);
     var query = dataSetToCheck.query;
     var answer = filter.filter(query);
 
     //then
-    var actual = query + ":" + answer.map((item) => _highlightToString(item.highlight.simple) + ":" + item.isSameOrder.toString()).join(", ");
+    var actual = query + ":" + answer.map((item) => _highlightToString(item.highlight.single) + ":" + item.isSameOrder.toString()).join(", ");
     var expected = query + ":" + dataSetToCheck.expect.map((item) => item.highlight + ":" + ((item.isSameOrder == null) ? true : item.isSameOrder.toString())).join(", ");
 
     expect(actual, equals(expected));
@@ -146,14 +147,14 @@ main() {
         keys: ["HELLO-WORLD"],
         query: "wo",
         expect: [
-          {"highlight": "HELLO_[WO]RLD"}
+          {"highlight": "HELLO-[WO]RLD"}
         ],
       ),
       new DataSetToCheck(
         keys: ["HELLO-WORLD"],
         query: "world",
         expect: [
-          {"highlight": "HELLO_[WORLD]"}
+          {"highlight": "HELLO-[WORLD]"}
         ],
       ),
       new DataSetToCheck(

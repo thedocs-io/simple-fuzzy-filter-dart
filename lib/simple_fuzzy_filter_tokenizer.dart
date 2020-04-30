@@ -9,11 +9,11 @@ class SimpleFuzzyFilterTokenizer {
   final Set<String> splitSymbols;
   final bool isSplitByCase;
 
-  SimpleFuzzyFilterTokenizer({this.splitSymbols = const {" ", "\t", ".", "-", "_", ","}, this.isSplitByCase = false});
+  SimpleFuzzyFilterTokenizer({this.splitSymbols, this.isSplitByCase = false});
 
   List<SimpleFuzzyFilterTokenizedItem> tokenize(String text) {
-    var answer = [] as List<SimpleFuzzyFilterTokenizedItem>;
-    var letters = text.split("");
+    final answer = <SimpleFuzzyFilterTokenizedItem>[];
+    final letters = text.split("");
     var currentToken = '';
     var prevTokenByCase = false;
 
